@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  apipy:
+    container_name: email-service
+    build: .
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    command: python ./app.py 0.0.0.0:85
+    ports:
+      - "9000:85"
+    volumes:
+      - .:/appbizion
+    environment:
+      FLASK_DEBUG: development
+    networks:
+      - postgres_default 
+networks:
+  postgres_default:
+    name: postgres_default
+    driver: bridge
+
+  

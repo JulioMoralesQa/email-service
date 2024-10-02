@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensaje Nuevo</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; color: #333; }
+        .container { max-width: 650px; margin: auto; background-color: #fff; border: 1px solid #ddd; overflow: hidden; }
+        .header { background-color: #FCC009; color: #000000; padding: 10px 15px; text-align: center; }
+        .content { padding: 20px; }
+        .footer { background-color: #FCC009; color: #333; text-align: center; padding: 10px 15px; font-size: 0.8em; }
+        .section { margin-bottom: 20px; }
+        .section-title { font-size: 1.2em; color: #FCC009; margin-bottom: 10px; }
+        .data-row { margin-bottom: 5px; }
+        .data-label { font-weight: bold; }
+        .data-info { margin-left: 5px; }
+        .italic { font-style: italic; }
+        .link { color: #FCC009; text-decoration: none; }
+        .border-left { border-left: 4px solid #FCC009; padding: 12px; }
+        img.logo { max-height: 50px; margin-right: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Tienes un nuevo mensaje</div>
+    
+        <div class="content">
+            <p>Hola Cormago</p>
+            <p>Nuevo Mensaje de {{profilePro}} {{otrosProfile}} {{firstName}}:</p>
+
+            <!-- Contact Information -->
+            <div class="section border-left">
+                <div class="data-row"><span class="data-label">Nombre:</span><span class="data-info">{{firstName}}</span></div>
+                <div class="data-row"><span class="data-label">Apellido:</span><span class="data-info">{{lastName}}</span></div>
+                <div class="data-row"><span class="data-label">Empresa:</span><span class="data-info">{{company}}</span></div>
+                <div class="data-row"><span class="data-label">Sociedad:</span><span class="data-info">{{companyType}}</span></div>
+                <div class="data-row"><span class="data-label">Cargo:</span><span class="data-info">{{position}}</span></div>
+                <div class="data-row"><span class="data-label">Telefono:</span><span class="data-info">{{phoneNumber}}</span></div>
+                <div class="data-row"><span class="data-label">Email:</span><span class="data-info">{{email}}</span></div>
+                <div class="data-row"><span class="data-label">Telefono empresa:</span><span class="data-info">{{phoneBusiness}}</span></div>
+                <div class="data-row"><span class="data-label">Estado:</span><span class="data-info">{{estado}}</span></div>
+                <div class="data-row"><span class="data-label">Ciudad:</span><span class="data-info">{{ciudad}}</span></div>
+                <div class="data-row"><span class="data-label">Direccion:</span><span class="data-info">{{address}}</span></div>
+                <div class="data-row"><span class="data-label">Inmuebles:</span><span class="data-info">{{tipoInmueble}} {{otroTipInmueble}}</span></div>
+            </div>
+
+            <!-- Here you can add more sections for each service as in the Contact Information section -->
+            <!-- Example for another section -->
+            <div class="section border-left">
+                <div class="section-title">Obra Civil</div>
+                <div class="data-row"><span class="data-label">Detalles:</span><span class="data-info">{{detalles}}</span></div>
+            </div>
+
+            <!-- Continue adding sections for each service -->
+            <!-- Example for Transporte de personal -->
+                       <!-- Transporte de Personal -->
+            <div class="section border-left">
+                <div class="section-title">Transporte de Personal</div>
+                <div class="data-row"><span class="data-label">Tipo de Vehículo:</span><span class="data-info">{{tipVehiculo}}</span></div>
+                <div class="data-row"><span class="data-label">Cantidad de Unidades:</span><span class="data-info">{{numUnidades}}</span></div>
+                <div class="data-row"><span class="data-label">Rutas:</span><span class="data-info">{{rutas}}</span></div>
+                <div class="data-row"><span class="data-label">Horarios:</span><span class="data-info">{{horarios}}</span></div>
+                <div class="data-row"><span class="data-label">Pasajeros:</span><span class="data-info">{{pasageros}}</span></div>
+                <div class="data-row"><span class="data-label">Distancia:</span><span class="data-info">{{distancia}}</span></div>
+            </div>
+
+
+            <!-- Add more sections for other services -->
+            <!-- Seguridad Privada -->
+            <div class="section border-left">
+                <div class="section-title">Seguridad Privada</div>
+                <div class="data-row"><span class="data-label">Número de Elementos:</span><span class="data-info">{{numeroElementos}}</span></div>
+                <div class="data-row"><span class="data-label">Horario de Servicio:</span><span class="data-info">{{horarioServicio}}</span></div>
+                <div class="data-row"><span class="data-label">Periodicidad:</span><span class="data-info">{{periodoSeguridad}}</span></div>
+                <div class="data-row"><span class="data-label">Transporte:</span><span class="data-info">{{transportePersonal}}</span></div>
+                <div class="data-row"><span class="data-label">Garantías:</span><span class="data-info">{{Garantias}}</span></div>
+                <div class="data-row"><span class="data-label">Servicio Extra:</span><span class="data-info">{{extrasSeguridad}}</span></div>
+                <div class="data-row"><span class="data-label">Tecnologías:</span><span class="data-info">{{tecnologia}}</span></div>
+                <div class="data-row"><span class="data-label">Transporte de Servicio:</span><span class="data-info">{{transporte}}</span></div>
+<div class="data-row"><span class="data-label">Mensaje de cliente:</span><span class="data-info">{{messageSp}}</span></div>
+            </div>
+            <!-- Limpieza de Instalaciones -->
+            <div class="section border-left">
+                <div class="section-title">Limpieza de Instalaciones</div>
+                <div class="data-row"><span class="data-label">Número de Elementos:</span><span class="data-info">{{numElemLimpieza}}</span></div>
+                <div class="data-row"><span class="data-label">Horario:</span><span class="data-info">{{horariolimpieza}}</span></div>
+                <div class="data-row"><span class="data-label">Periodicidad:</span><span class="data-info">{{periodicidad}}</span></div>
+                <div class="data-row"><span class="data-label">Extras:</span><span class="data-info">{{extrasLimpieza}}</span></div>
+                <div class="data-row"><span class="data-label">Tipo de Servicio:</span><span class="data-info">{{tipoServicio}}</span></div>
+            </div>
+            <!-- Control de Plagas -->
+            <div class="section border-left">
+                <div class="section-title">Control de Plagas</div>
+                <div class="data-row"><span class="data-label">Dimensiones Lineales:</span><span class="data-info">{{dimensionesAprox}}</span></div>
+                <div class="data-row"><span class="data-label">Metros Cuadrados (m2):</span><span class="data-info">{{dimensionesAprox2}}</span></div>
+                <div class="data-row"><span class="data-label">Metros Cúbicos (m3):</span><span class="data-info">{{dimensionesAprox3}}</span></div>
+                <div class="data-row"><span class="data-label">Plagas Identificadas:</span><span class="data-info">{{plagas}}</span></div>
+                <div class="data-row"><span class="data-label">Otros Detalles:</span><span class="data-info">{{otrosMIP}}</span></div>
+                <div class="data-row"><span class="data-label">Controladores Fijos:</span><span class="data-info">{{controladores}}</span></div>
+                <div class="data-row"><span class="data-label">Cantidad:</span><span class="data-info">{{cantidad}}</span></div>
+                <div class="data-row"><span class="data-label">Horario de Servicio:</span><span class="data-info">{{horario}}</span></div>
+                <div class="data-row"><span class="data-label">Servicio de Cetrería:</span><span class="data-info">{{servicioCetreria}}</span></div>
+                <div class="data-row"><span class="data-label">Otros Servicios:</span><span class="data-info">{{otroServicio}}</span></div>
+<div class="data-row"><span class="data-label">Mensaje de cliente:</span><span class="data-info">{{messageMIP}}</span></div>
+            </div>
+
+            <!-- Manejo de Residuos -->
+            <div class="section border-left">
+                <div class="section-title">Manejo de Residuos</div>
+                <div class="data-row"><span class="data-label">Residuo de Manejo Especial:</span><span class="data-info">Viajes mensuales: {{viajesResiduoManejo}}, Cantidad aproximada: {{cantidadResiduoManejo}}</span></div>
+                <div class="data-row"><span class="data-label">Desazolve:</span><span class="data-info">Viajes mensuales: {{viajesDesazolve}}, Cantidad aproximada: {{cantidadDesazolve}}</span></div>
+                <div class="data-row"><span class="data-label">Residuos Peligrosos:</span><span class="data-info">Cantidad de recolecciones anuales: {{recoleccionesAnuales}}</span></div>
+            </div>
+
+            <div class="section border-left italic">
+                
+            </div>
