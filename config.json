@@ -1,0 +1,10 @@
+{
+    "gafimex": {
+        "name": "gafimex",
+        "service": 3
+    },
+    "laPerla": {
+        "name": "LaPerla",
+        "service": 4
+    }
+}
