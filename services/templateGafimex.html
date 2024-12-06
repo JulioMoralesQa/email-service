@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensaje Nuevo</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; color: #333; }
+        .container { max-width: 650px; margin: auto; background-color: #fff; border: 1px solid #ddd; overflow: hidden; }
+        .header { background-color: #FCC009; color: #000000; padding: 10px 15px; text-align: center; }
+        .content { padding: 20px; }
+        .footer { background-color: #FCC009; color: #333; text-align: center; padding: 10px 15px; font-size: 0.8em; }
+        .section { margin-bottom: 20px; }
+        .section-title { font-size: 1.2em; color: #FCC009; margin-bottom: 10px; }
+        .data-row { margin-bottom: 5px; }
+        .data-label { font-weight: bold; }
+        .data-info { margin-left: 5px; }
+        .italic { font-style: italic; }
+        .link { color: #FCC009; text-decoration: none; }
+        .border-left { border-left: 4px solid #FCC009; padding: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Tienes un nuevo mensaje</div>
+    
+        <div class="content">
+            <p>Hola Gafimex</p>
+            <p>Nuevo Mensaje</p>
+
+            <!-- Contact Information -->
+            <div class="section border-left">
+                <div class="data-row"><span class="data-label">Nombre:</span><span class="data-info">{{firstName}}</span></div>
+                <div class="data-row"><span class="data-label">Telefono:</span><span class="data-info">{{phone}}</span></div>
+                <div class="data-row"><span class="data-label">Email:</span><span class="data-info">{{email}}</span></div>
+                <div class="data-row"><span class="data-label">Mensaje:</span><span class="data-info">{{message}}</span></div>
+               
+            </div>
+
+            
+
+            </div>
+    </div>
+</body>
+</html>

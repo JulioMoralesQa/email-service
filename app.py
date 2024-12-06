@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS,cross_origin
 from socket import *
 import ssl
-
+from routes import configservice
 
 from Configapp import Configapp
 from decouple import config
@@ -25,6 +25,7 @@ if __name__ == '__main__':
     app.config.from_object(Configapp['development'])
 
     app.register_blueprint(email.main, url_prefix='/api/email/')
+    app.register_blueprint(configservice.main , url_prefix='/api/config-service/' )
     
     # Error handlers
     app.register_error_handler(404, page_not_found)
