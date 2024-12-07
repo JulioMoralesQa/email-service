@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  apipy:
+  email:
     container_name: email-service
     build: .
     stdin_open: true
@@ -16,10 +16,27 @@ services:
     environment:
       FLASK_DEBUG: development
     networks:
-      - postgres_default 
+      - email-postgres
+  postgres:
+    image: postgres:12-bullseye
+    container_name: postgres_email
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=3g8tss955
+      - POSTGRES_DB=CormagoContact
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - email-postgres
 networks:
-  postgres_default:
-    name: postgres_default
+  email-postgres:
+    name: email-postgres
     driver: bridge
-
+volumes:
+  pgdata:
   
