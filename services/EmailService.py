@@ -33,12 +33,12 @@ class EmailService():
 
     @classmethod
     #* @description: Se construye el array que contiene toda la informacion del email a enviar
-    def build_array_email(self, subject, path_html, destinatary, optional_array={}):
+    def build_array_email(self, subject, sender, path_html, destinatary, optional_array={}):
         try:
             # Crear el email
             email = MIMEMultipart()
             email['Subject'] = subject                # Asunto
-            email["From"] = config('MAIL_USERNAME')   # Remitente
+            email["From"] = sender  # Remitente
             email["To"] = ''.join(destinatary)      # Destinatarios (separados por coma)
             print("linea 43")
             # Configurar Jinja2 para cargar la plantilla desde el directorio
@@ -64,10 +64,10 @@ class EmailService():
     #?Algunos datos se encuentran en el archivo .env
     #?Returns: 200 OK, 500 Failed
     @classmethod
-    def send_email(self,subject,path_html,destinatary, optional_array = []):
+    def send_email(self,subject, sender ,path_html,destinatary, optional_array = []):
         print(config('MAIL_USERNAME'))
         try:
-            email_data = EmailService.build_array_email(subject,path_html,destinatary,optional_array)
+            email_data = EmailService.build_array_email(subject, sender,path_html,destinatary,optional_array)
             print(email_data)
             if(len(email_data) == 0):
                 return 500
@@ -174,21 +174,65 @@ class EmailService():
     #?Algunos datos se encuentran en el archivo .env
     #?Returns: 200 OK, 500 Failed
     @classmethod
-    def send_email_la_perla(self,subject,path_html,destinatary, optional_array = []):
-        print(config('MAIL_USERNAME'))
+    def send_email_la_perla(self,subject, sender, senderpass, domainSender,path_html,destinatary, optional_array = []):
+        print('envio de la perla')
+        print(domainSender)
+        print(sender)
+        print(senderpass)
         try:
-            email_data = EmailService.build_array_email(subject,path_html,destinatary,optional_array)
+            email_data = EmailService.build_array_email(subject, sender,path_html,destinatary,optional_array)
 
             if(len(email_data) == 0):
                 return 500
             
             #? Procedimiento de envio de email con SSL, para que no sea spam
-            with smtplib.SMTP_SSL(config('DOMAIN_EXTENSION'), config('MAIL_PORT')) as server:  # ENVIAR DESDE UN DOMINIO PERSONALIZADO.
-                server.login(config('MAIL_USERNAME'), config('MAIL_PASSWORD'))
-                server.sendmail(config('MAIL_USERNAME'),destinatary, email_data.as_string())
+            with smtplib.SMTP_SSL(domainSender, config('MAIL_PORT')) as server:  # ENVIAR DESDE UN DOMINIO PERSONALIZADO.
+                server.login(sender, senderpass)
+                server.sendmail(sender,destinatary, email_data.as_string())
             return 200;
 
         except Exception as ex:
             print("Error al enviar email")
+            print(ex)
+            return 500
+    
+
+    @classmethod
+    def send_email_gafimex(self,subject, sender, senderpass, domainSender,path_html,destinatary, optional_array = []):
+        
+        try:
+            email_data = EmailService.build_array_email(subject,sender,path_html,destinatary,optional_array)
+
+            if(len(email_data) == 0):
+                return 500
+            
+            #? Procedimiento de envio de email con SSL, para que no sea spam
+            with smtplib.SMTP_SSL(domainSender, config('MAIL_PORT')) as server:  # ENVIAR DESDE UN DOMINIO PERSONALIZADO.
+                server.login(sender, senderpass)
+                server.sendmail(sender,destinatary, email_data.as_string())
+            return 200;
+
+        except Exception as ex:
+            print("Error al enviar email gafimex")
+            print(ex)
+            return 500
+
+    @classmethod
+    def send_email_hyvecode(self,subject, sender, senderpass, domainSender,path_html,destinatary, optional_array = []):
+        
+        try:
+            email_data = EmailService.build_array_email(subject,sender,path_html,destinatary,optional_array)
+
+            if(len(email_data) == 0):
+                return 500
+            
+            #? Procedimiento de envio de email con SSL, para que no sea spam
+            with smtplib.SMTP_SSL(domainSender, config('MAIL_PORT')) as server:  # ENVIAR DESDE UN DOMINIO PERSONALIZADO.
+                server.login(sender, senderpass)
+                server.sendmail(sender,destinatary, email_data.as_string())
+            return 200;
+
+        except Exception as ex:
+            print("Error al enviar email gafimex")
             print(ex)
             return 500
