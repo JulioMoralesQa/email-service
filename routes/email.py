@@ -26,7 +26,7 @@ def example_object():
         
         data= request.json['data']
        
-        response        = EmailService.send_email("Solicitud de Informacion", 'ventas@cormago.com.mx', "templateContactoCormago.html", "ventas@cormago.com.mx", data);
+        response        = EmailService.send_email("Solicitud de Información", 'ventas@cormago.com.mx', "templateContactoCormago.html", "ventas@cormago.com.mx", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
