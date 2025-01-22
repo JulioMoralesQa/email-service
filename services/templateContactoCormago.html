@@ -36,7 +36,11 @@
                
             </div>
             <div class="data-row"><span class="data-label">Mensaje:</span><span class="data-info">{{message}}</span></div>
-            
+            <div class="data-row"><span class="data-label">Suscripcion al newsletter:</span><span class="data-info">{% if subscribe %}
+                Suscrito
+              {% else %}
+                Sin suscripcion
+              {% endif %}</span></div>
 
             </div>
     </div>
