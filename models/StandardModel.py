@@ -13,6 +13,7 @@ class StandardModel():
         #print(store_procedure)
         #print(params)
         try:
+            connection = None
             #obtiene conexion con la base de datos
             connection = get_connection()
             #crear un cursor
@@ -41,6 +42,7 @@ class StandardModel():
     @classmethod
     def standar_query(self, store_procedure,params):
         try:
+            connection = None
             #obtiene conexion con la base de datos
             connection = get_connection()
             #crear un cursor
