@@ -26,7 +26,7 @@ def example_object():
         
         data= request.json['data']
        
-        response        = EmailService.send_email("Solicitud de Información", 'ventas@cormago.com.mx', "templateContactoCormago.html", "ventas@cormago.com.mx", data);
+        response        = EmailService.send_email("Solicitud de Información", 'jmorales-webdev@hyvecode.com.mx', "templateContactoCormago.html", "jmorales-webdev@hyvecode.com.mx", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
@@ -113,15 +113,35 @@ def saveMailGafimex():
     try:
         
         data= request.json['data']
-        sig = [{"email":data}]
-        datasig= json.dumps(sig)
-        params=(1,datasig)
+        data_json = json.dumps([data])
+        user_email = data['email']
+        user_name = data['firstname']
+
+        validation_params = (2, data_json)  # Usa opción 2 para validación
+        validation_proc = "\"GafimexWeb\".\"EmailOperations\""
+        validation_response = StandardModel.standar_query(validation_proc, validation_params)
+
+        # Verifica si el procedimiento almacenado indica que el email ya existe
+        if validation_response and validation_response.get('exists', False):
+            return jsonify(
+                message=f"El email {user_email} ya está registrado en la base de datos.",
+                category="error",
+                status=400
+            )
+
+        # Si el email no existe, procede con la inserción y el envío del correo
+        if user_name == "newsletter":
+            template = "templateSubscriptionGafimex.html"
+        else:
+            template = "templateSubscriptionGafimexDiscount.html"
+
+        params=(1,data_json)
         storeProcedure="\"GafimexWeb\".\"EmailOperations\""
         note_data   = StandardModel.standar_query(storeProcedure,params)
         print("linea 53")
         print(note_data)
        
-        response        = EmailService.send_email_gafimex("Confirmacion Suscripcion","contacto-gafimex@gafimex.com", "5c3krM6iDuOy{",'smtp.zoho.com', "templateSubscriptionGafimex.html", data);
+        response        = EmailService.send_email_gafimex("Confirmacion Suscripcion","contacto-gafimex@gafimex.com", "5c3krM6iDuOy{",'smtp.zoho.com', template, user_email);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
@@ -141,7 +161,7 @@ def cotizacion_cormago():
         
         data= request.json['data']
        
-        response        = EmailService.send_email("Cotizacion de Servicio", 'ventas@cormago.com.mx', "templateCotizacion.html", "ventas@cormago.com.mx", data);
+        response        = EmailService.send_email("Cotizacion de Servicio", 'jmorales-webdev@hyvecode.com.mx', "templateCotizacion.html", "jmorales-webdev@hyvecode.com.mx", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
@@ -155,31 +175,57 @@ def cotizacion_cormago():
     
 @main.route('/save-email-cormago', methods=['POST'])
 def saveMailCormago():
-    
-    
     try:
-        
-        data= request.json['data']
-        sig = [{"email":data}]
-        datasig= json.dumps(sig)
-        params=(1,datasig)
-        storeProcedure="\"CormagoWeb\".\"EmailOperations\""
-        note_data   = StandardModel.standar_query(storeProcedure,params)
-        print("linea 53")
-        print(note_data)
-        email           = MIMEMultipart();
-        email['info']   = 'Gracias por suscribirte a la perla';
-        email['option'] = 'html';
-        response        = EmailService.send_email("Confirmacion de suscripcion", 'ventas@cormago.com.mx', "templateSubscriptionCormago.html", data);
-        
+        # Extraer datos del JSON enviado
+        data = request.json['data']
+        data_json = json.dumps([data])
+        user_email = data['email']
+        user_name = data['firstname']
+
+        # Validar si el email ya existe en la base de datos
+        validation_params = (2, data_json)  # Usa opción 2 para validación
+        validation_proc = "\"CormagoWeb\".\"EmailOperations\""
+        validation_response = StandardModel.standar_query(validation_proc, validation_params)
+
+        # Verifica si el procedimiento almacenado indica que el email ya existe
+        if validation_response and validation_response.get('exists', False):
+            return jsonify(
+                message=f"El email {user_email} ya está registrado en la base de datos.",
+                category="error",
+                status=400
+            )
+
+        # Si el email no existe, procede con la inserción y el envío del correo
+        if user_name == "newsletter":
+            template = "templateSubscriptionCormago.html"
+        else:
+            template = "templateSubscriptionCormagoDiscount.html"
+
+        params = (1, data_json)
+        storeProcedure = "\"CormagoWeb\".\"EmailOperations\""
+        note_data = StandardModel.standar_query(storeProcedure, params)
+
+        # Enviar email
+        email = MIMEMultipart()
+        email['info'] = 'Gracias por suscribirte a la perla'
+        email['option'] = 'html'
+        response = EmailService.send_email(
+            "Confirmación de suscripción", 
+            'jmorales-webdev@hyvecode.com.mx', 
+            template, 
+            user_email
+        )
+
         return jsonify(
-            message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
-            category    = "success",
-            data        = response,
-            status      = 200,
-            registros   = format(1)
-        );
+            message=('Error al enviar email', 'Email enviado correctamente')[response == 200],
+            category="success",
+            data=response,
+            status=200,
+            registros=format(1)
+        )
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
+
 
     
