@@ -93,8 +93,14 @@ def sendEmailGafimex():
     try:
         
         data= request.json['data']
+        message = data['message']
+
+        if message == "suscripcion":
+            asunto = "Nueva suscripcion al Newsletter"
+        else:
+            asunto = "Solicitud de Informacion"
        
-        response        = EmailService.send_email_gafimex("Solicitud Informacion","contacto-gafimex@gafimex.com","5c3krM6iDuOy{","smtp.zoho.com", "templateGafimex.html", "contacto-gafimex@gafimex.com", data);
+        response        = EmailService.send_email_gafimex(asunto,"contacto@gafimex.com","3G8tss955..","smtp.zoho.com", "templateGafimex.html", "contacto@gafimex.com", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
