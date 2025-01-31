@@ -147,7 +147,7 @@ def saveMailGafimex():
         print("linea 53")
         print(note_data)
        
-        response        = EmailService.send_email_gafimex("Confirmacion Suscripcion","contacto-gafimex@gafimex.com", "5c3krM6iDuOy{",'smtp.zoho.com', template, user_email);
+        response        = EmailService.send_email_gafimex("Confirmacion Suscripcion","contacto@gafimex.com", "3G8tss955..",'smtp.zoho.com', template, user_email);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
