@@ -26,7 +26,7 @@ def example_object():
         
         data= request.json['data']
        
-        response        = EmailService.send_email("Solicitud de Información", 'jmorales-webdev@hyvecode.com.mx', "templateContactoCormago.html", "jmorales-webdev@hyvecode.com.mx", data);
+        response        = EmailService.send_email("Solicitud de Información", 'ventas@cormago.com.mx', "templateContactoCormago.html", "ventas@cormago.com.mx", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
@@ -167,7 +167,7 @@ def cotizacion_cormago():
         
         data= request.json['data']
        
-        response        = EmailService.send_email("Cotizacion de Servicio", 'jmorales-webdev@hyvecode.com.mx', "templateCotizacion.html", "jmorales-webdev@hyvecode.com.mx", data);
+        response        = EmailService.send_email("Cotizacion de Servicio", 'ventas@cormago.com.mx', "templateCotizacion.html", "ventas@cormago.com.mx", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
