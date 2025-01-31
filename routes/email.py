@@ -217,7 +217,7 @@ def saveMailCormago():
         email['option'] = 'html'
         response = EmailService.send_email(
             "Confirmación de suscripción", 
-            'jmorales-webdev@hyvecode.com.mx', 
+            'ventas@cormago.com.mx', 
             template, 
             user_email
         )
