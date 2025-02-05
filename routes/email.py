@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, make_response
+from decouple import config
 import json
 from email.mime.multipart import MIMEMultipart
 import base64
@@ -66,11 +67,10 @@ def saveMailLaPerla():
         data= request.json['data']
         sig = [{"email":data}]
         datasig= json.dumps(sig)
-        params=(1,datasig)
-        storeProcedure="\"LaPerlaWeb\".\"EmailOperations\""
+        params=(1,datasig,config('SECRET_KEY_PG'))
+        storeProcedure="\"LaPerlaWeb\".\"EmailOperations_encrypted\""
         note_data   = StandardModel.standar_query(storeProcedure,params)
-        print("linea 53")
-        print(note_data)
+        
         email           = MIMEMultipart();
         email['info']   = 'Gracias por suscribirte a la perla';
         email['option'] = 'html';
@@ -123,8 +123,8 @@ def saveMailGafimex():
         user_email = data['email']
         user_name = data['firstname']
 
-        validation_params = (2, data_json)  # Usa opción 2 para validación
-        validation_proc = "\"GafimexWeb\".\"EmailOperations\""
+        validation_params = (2, data_json, config('SECRET_KEY_PG'))  # Usa opción 2 para validación
+        validation_proc = "\"GafimexWeb\".\"EmailOperations_encrypted\""
         validation_response = StandardModel.standar_query(validation_proc, validation_params)
 
         # Verifica si el procedimiento almacenado indica que el email ya existe
@@ -141,8 +141,8 @@ def saveMailGafimex():
         else:
             template = "templateSubscriptionGafimexDiscount.html"
 
-        params=(1,data_json)
-        storeProcedure="\"GafimexWeb\".\"EmailOperations\""
+        params=(1,data_json,config('SECRET_KEY_PG'))
+        storeProcedure="\"GafimexWeb\".\"EmailOperations_encrypted\""
         note_data   = StandardModel.standar_query(storeProcedure,params)
         print("linea 53")
         print(note_data)
@@ -166,8 +166,14 @@ def cotizacion_cormago():
     try:
         
         data= request.json['data']
+        servicio = data['servicio']
+
+        if servicio == "Suscripcion Descuento":
+            asunto = "Nueva suscripcion al Newsletter"
+        else:
+            asunto = "Cotizacion de servicio"
        
-        response        = EmailService.send_email("Cotizacion de Servicio", 'ventas@cormago.com.mx', "templateCotizacion.html", "ventas@cormago.com.mx", data);
+        response        = EmailService.send_email(asunto, 'ventas@cormago.com.mx', "templateCotizacion.html", "ventas@cormago.com.mx", data);
         
         return jsonify(
             message     = ('Error al enviar email','Email enviado correctamente')[response == 200],
@@ -189,8 +195,8 @@ def saveMailCormago():
         user_name = data['firstname']
 
         # Validar si el email ya existe en la base de datos
-        validation_params = (2, data_json)  # Usa opción 2 para validación
-        validation_proc = "\"CormagoWeb\".\"EmailOperations\""
+        validation_params = (2, data_json, config('SECRET_KEY_PG') )  # Usa opción 2 para validación
+        validation_proc = "\"CormagoWeb\".\"EmailOperations_encrypted\""
         validation_response = StandardModel.standar_query(validation_proc, validation_params)
 
         # Verifica si el procedimiento almacenado indica que el email ya existe
@@ -207,8 +213,8 @@ def saveMailCormago():
         else:
             template = "templateSubscriptionCormagoDiscount.html"
 
-        params = (1, data_json)
-        storeProcedure = "\"CormagoWeb\".\"EmailOperations\""
+        params = (1, data_json,config('SECRET_KEY_PG'))
+        storeProcedure = "\"CormagoWeb\".\"EmailOperations_encrypted\""
         note_data = StandardModel.standar_query(storeProcedure, params)
 
         # Enviar email
